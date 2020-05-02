@@ -8,28 +8,28 @@ int main(){
     TFile * fs = new TFile(filename.Data(), "RECREATE");
     
     //original from generator
-    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_ori_lund/original_492.root", "r");
+    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_574.root", "r");
     TH1D * h519_0 = (TH1D *) fs_519->Get("MpPip");
     TH1D * h519_1 = (TH1D *) fs_519->Get("MpPim");
     TH1D * h519_2 = (TH1D *) fs_519->Get("MPiPi");
     TH1D * h519_3 = (TH1D *) fs_519->Get("MissingSQ");
     TH1D * h519_4 = (TH1D *) fs_519->Get("Q2");
 
-    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_ori_lund/original_493.root", "r");
+    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_575.root", "r");
     TH1D * h523_0 = (TH1D *) fs_523->Get("MpPip");
     TH1D * h523_1 = (TH1D *) fs_523->Get("MpPim");
     TH1D * h523_2 = (TH1D *) fs_523->Get("MPiPi");
     TH1D * h523_3 = (TH1D *) fs_523->Get("MissingSQ");
     TH1D * h523_4 = (TH1D *) fs_523->Get("Q2");
 
-    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_ori_lund/original_498.root", "r");
+    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_576.root", "r");
     TH1D * h525_0 = (TH1D *) fs_525->Get("MpPip");
     TH1D * h525_1 = (TH1D *) fs_525->Get("MpPim");
     TH1D * h525_2 = (TH1D *) fs_525->Get("MPiPi");
     TH1D * h525_3 = (TH1D *) fs_525->Get("MissingSQ");
     TH1D * h525_4 = (TH1D *) fs_525->Get("Q2");
 
-    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_ori_lund/original_499.root", "r");
+    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_577.root", "r");
     TH1D * h543_0 = (TH1D *) fs_543->Get("MpPip");
     TH1D * h543_1 = (TH1D *) fs_543->Get("MpPim");
     TH1D * h543_2 = (TH1D *) fs_543->Get("MPiPi");

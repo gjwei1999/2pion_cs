@@ -3,7 +3,7 @@
 
 int main(){
     
-    int ngroup =4; 
+    int ngroup =2; 
     
     TString filename1 = "output3_all_rebin.root";
 
