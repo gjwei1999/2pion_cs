@@ -4,7 +4,7 @@
 int main(){
     //rga_eft 
     //519 523 525 535(543)
-    TString filename = "original_535.root";
+    TString filename = "original_519.root";
     TFile * fs = new TFile(filename.Data(), "RECREATE");
   
     TLorentzVector ki[2], kf[5];
@@ -22,15 +22,7 @@ int main(){
     TH2D * h0f = new TH2D("W_vs_q2","W_vs_q2",500,0.0,5.5,500,0.0,4.5);
     TH1D * h0g = new TH1D("W", "W", 500, 0.0, 5.5);
 
-    TH1D * h1a = new TH1D("W(q2<1.5)","W(q2<1.5)",500,0.0,5.5);
-    TH1D * h1b = new TH1D("W(q2<2)","W(q2<2)",500,0.0,5.5);
-    TH1D * h1c = new TH1D("W(2<q2<3)","W(2<q2<3)",500,0.0,5.5);
-    TH1D * h1d = new TH1D("W(3<q2<4)","W(3<q2<4)",500,0.0,5.5);
-
-    TH1D * h2a = new TH1D("W(q2<1.5)_photon","W(q2<1.5)_photon",500,0.0,5.5);
-    TH1D * h2b = new TH1D("W(q2<2)_photon","W(q2<2)_photon",500,0.0,5.5);
-    TH1D * h2c = new TH1D("W(2<q2<3)_photon","W(2<q2<3)_photon",500,0.0,5.5);
-    TH1D * h2d = new TH1D("W(3<q2<4)_photon","W(3<q2<4)_photon",500,0.0,5.5);
+    TH1D * h2a = new TH1D("W_photon","W_photon",500,0.0,5.5);
 
 
     h0a->SetDirectory(fs);
@@ -40,20 +32,13 @@ int main(){
     h0e->SetDirectory(fs);
     h0f->SetDirectory(fs);    
     h0g->SetDirectory(fs);
-    h1a->SetDirectory(fs);
-    h1b->SetDirectory(fs);
-    h1c->SetDirectory(fs);
-    h1d->SetDirectory(fs);
     h2a->SetDirectory(fs);
-    h2b->SetDirectory(fs);
-    h2c->SetDirectory(fs);
-    h2d->SetDirectory(fs);   
 
     h0f->SetOption("COLZ");
     gStyle->SetPalette(53);
 
     //path to lund file
-    TString path1 = "/volatile/clas12/osg/gjwei/job_535/lund_dir/";       //path to lund files
+    TString path1 = "/volatile/clas12/osg/gjwei/job_519/lund_dir/";       //path to lund files
     TString file = "out_rga_ft";
   
     int file1 = 1;
@@ -102,22 +87,7 @@ int main(){
 	flux = w_value*(w_value*w_value - Mp*Mp)/Mp/Mp/10.6041/10.6041/4.0/M_PI;
         flux = flux/q2 /(1-epsilont)/137.0;
         //std::cout<<"flux   "<<flux<<std::endl;
-        if(q2 < 1.5){
-                h1a->Fill(w_value, weight);
-                h2a->Fill(w_value, weight/flux);
-        }
-        if(q2 < 2.0){
-                h1b->Fill(w_value, weight);
-                h2b->Fill(w_value, weight/flux);
-        }
-        if(q2 < 3.0 && q2 > 2.0){
-                h1c->Fill(w_value, weight);
-                h2c->Fill(w_value, weight/flux);
-        }
-        if(q2 < 4.0 && q2 > 3.0){
-                h1d->Fill(w_value, weight);
-                h2d->Fill(w_value, weight/flux);
-        }
+        h2a->Fill(w_value, weight/flux);
     }    
       infile.close();
       if(file1%100==0) {cout<<file1<<endl;}
