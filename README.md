@@ -1,3 +1,3 @@
-# 2pion_cs_rgaeft_script
+# 2pion_cs
 
-scripts for double-pion electroproduction cross section analysis 
+get cross section
