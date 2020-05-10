@@ -1,5 +1,11 @@
-#include "Lcore.h"
+/****************************************/
+/*                                      */
+/*       Created by Jiawei Guo          */
+/*           Duke University            */
+/*                                      */
+/****************************************/
 
+#include "Lcore.h"
 
 int main(){
     

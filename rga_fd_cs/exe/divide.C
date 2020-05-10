@@ -1,3 +1,10 @@
+/****************************************/
+/*                                      */
+/*       Created by Jiawei Guo          */
+/*           Duke University            */
+/*                                      */
+/****************************************/
+
 #include "Lcore.h"
 
 int main(){
@@ -36,7 +43,7 @@ int main(){
 
 
     //simulation
-    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/before_rebin/output_new_simu.root", "r");
+    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/FD_analysis/build_rga/output3_simu.root", "r");
     TH1D * hsimu_0 = (TH1D *) fs_simu->Get("invmass_Ppip_twoPi");
     TH1D * hsimu_1 = (TH1D *) fs_simu->Get("invmass_Ppim_twoPi");
     TH1D * hsimu_2 = (TH1D *) fs_simu->Get("invmass_pippim_twoPi");
@@ -54,7 +61,7 @@ int main(){
     TH1D * hsimu_7d = (TH1D *) fs_simu->Get("W_q2_34_photon_twoPi");
     
     //original from generator
-    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_574.root", "r");
+    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_574.root", "r");
     TH1D * h519_0 = (TH1D *) fs_519->Get("MpPip");
     TH1D * h519_1 = (TH1D *) fs_519->Get("MpPim");
     TH1D * h519_2 = (TH1D *) fs_519->Get("MPiPi");
@@ -69,7 +76,7 @@ int main(){
     TH1D * h519_7c = (TH1D *) fs_519->Get("W(2<q2<3)_photon");
     TH1D * h519_7d = (TH1D *) fs_519->Get("W(3<q2<4)_photon");
     
-    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_575.root", "r");
+    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_575.root", "r");
     TH1D * h523_0 = (TH1D *) fs_523->Get("MpPip");
     TH1D * h523_1 = (TH1D *) fs_523->Get("MpPim");
     TH1D * h523_2 = (TH1D *) fs_523->Get("MPiPi");
@@ -84,7 +91,7 @@ int main(){
     TH1D * h523_7c = (TH1D *) fs_523->Get("W(2<q2<3)_photon");
     TH1D * h523_7d = (TH1D *) fs_523->Get("W(3<q2<4)_photon");
      
-    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_576.root", "r");
+    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_576.root", "r");
     TH1D * h525_0 = (TH1D *) fs_525->Get("MpPip");
     TH1D * h525_1 = (TH1D *) fs_525->Get("MpPim");
     TH1D * h525_2 = (TH1D *) fs_525->Get("MPiPi");
@@ -99,7 +106,7 @@ int main(){
     TH1D * h525_7c = (TH1D *) fs_525->Get("W(2<q2<3)_photon");
     TH1D * h525_7d = (TH1D *) fs_525->Get("W(3<q2<4)_photon");
 
-    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_577.root", "r");
+    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_577.root", "r");
     TH1D * h543_0 = (TH1D *) fs_543->Get("MpPip");
     TH1D * h543_1 = (TH1D *) fs_543->Get("MpPim");
     TH1D * h543_2 = (TH1D *) fs_543->Get("MPiPi");

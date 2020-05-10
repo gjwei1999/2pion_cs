@@ -1,15 +1,30 @@
+/****************************************/
+/*     					*/
+/*       Created by Jiawei Guo  	*/
+/*	     Duke University            */
+/*					*/
+/****************************************/
+
 #include "Lcore.h"
 
 
-int main(){
+int main(const int argc, const char * argv[]){
     //rga
     //492 493 498 499
     //rga_eft 
-    //519 523 525 535(543)
+    //519 523 525 535(543)  lund files cout from 1 to 500
     //rga_new
-    //574 575 576 577
-    TString filename = "original_576.root";
-    TFile * fs = new TFile(filename.Data(), "RECREATE");
+    //574 575 576 577     lund files cout from 0 to 499
+    
+    if (argc < 2){
+    std::cout << "./original <job number of OSG> " << endl;
+    return 0;
+  }
+    int job = atoi(argv[1]);
+    TString jobname = "original_";  
+    
+    string filename = Form("%s%d.root",jobname.Data(),job);
+    TFile * fs = new TFile(filename.c_str(), "RECREATE");
   
     TLorentzVector ki[2], kf[5];
     TLorentzVector kprot;
@@ -54,15 +69,17 @@ int main(){
     h0f->SetOption("COLZ");
     gStyle->SetPalette(53);
 
+    TString path0 = "/volatile/clas12/osg/gjwei/job_";
+
     //path to lund file
-    TString path1 = "/volatile/clas12/osg/gjwei/job_576/lund_dir/";       //path to lund files
+    string path1 = Form("%s%d/lund_dir/", path0.Data(), job);       //path to lund files
     TString file = "out_rga";
  
-    int file1 = 1;
-    for(file1 ; file1 < 501; file1++){
+    int file1 = 0;
+    for(file1 ; file1 < 500; file1++){
       
     //TString inputfile = path1 + file + std::to_string(file1) + ".lund";
-    string inputfile = Form("%s%s%d.lund", path1.Data(), file.Data(), file1);
+    string inputfile = Form("%s%s%d.lund", path1.c_str(), file.Data(), file1);
     
     ifstream infile( inputfile.c_str() );
     
