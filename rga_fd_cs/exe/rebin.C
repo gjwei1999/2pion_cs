@@ -7,21 +7,27 @@
 
 #include "Lcore.h"
 
-int main(){
+int main(const int argc, const char * argv[]){
     
-    int ngroup =2; 
+    if (argc < 2){
+    std::cout << "./rebin <ngroup> " << endl;
+    return 0;
+  }
+
+    int ngroup = atoi(argv[1]); 
     
-    TString filename1 = "output3_all_rebin.root";
+    TString filename1 = "../after_rebin/output3_0052_rebin.root";
 
     TFile * fs1 = new TFile(filename1.Data(), "RECREATE");
 
     //data
-    TFile * fs_data = new TFile("/work/clas12/users/gjwei/tmp/2pion/build_new/output3_all.root", "r");
+    TFile * fs_data = new TFile("/work/clas12/users/gjwei/FD_analysis/build_rga/output3_0052.root", "r");
     TH1D * hdata_0 = (TH1D *) fs_data->Get("invmass_Ppip_twoPi");
     TH1D * hdata_1 = (TH1D *) fs_data->Get("invmass_Ppim_twoPi");
     TH1D * hdata_2 = (TH1D *) fs_data->Get("invmass_pippim_twoPi");
     TH1D * hdata_4 = (TH1D *) fs_data->Get("Q2_twoPi");
     TH2D * hdata_5 = (TH2D *) fs_data->Get("W_vs_q2_twoPi");
+    TH2D * hdata_5b = (TH2D *) fs_data->Get("W_vs_q2_photon_twoPi");
     TH1D * hdata_6a = (TH1D *) fs_data->Get("W_q2_15_twoPi");
     TH1D * hdata_6b = (TH1D *) fs_data->Get("W_q2_2_twoPi");
     TH1D * hdata_6c = (TH1D *) fs_data->Get("W_q2_23_twoPi");
@@ -36,6 +42,7 @@ int main(){
     TH1D * hdata_2_2 = (TH1D *) (hdata_2->Rebin(ngroup,"invmass_pippim_twoPi"));
     TH1D * hdata_4_4 = (TH1D *) (hdata_4->Rebin(ngroup,"Q2_twoPi"));
     TH2D * hdata_5_5 = (TH2D *) (hdata_5->Rebin2D(ngroup,ngroup,"W_vs_q2_twoPi"));
+    TH2D * hdata_5b_5b = (TH2D *) (hdata_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon_twoPi"));
     TH1D * hdata_6a_6a = (TH1D *) (hdata_6a->Rebin(ngroup,"W_q2_15_twoPi"));
     TH1D * hdata_6b_6b = (TH1D *) (hdata_6b->Rebin(ngroup,"W_q2_2_twoPi"));
     TH1D * hdata_6c_6c = (TH1D *) (hdata_6c->Rebin(ngroup,"W_q2_23_twoPi"));
@@ -50,6 +57,7 @@ int main(){
     hdata_2_2->SetDirectory(fs1);
     hdata_4_4->SetDirectory(fs1);
     hdata_5_5->SetDirectory(fs1);
+    hdata_5b_5b->SetDirectory(fs1);
     hdata_6a_6a->SetDirectory(fs1);
     hdata_6b_6b->SetDirectory(fs1);
     hdata_6c_6c->SetDirectory(fs1);
@@ -60,17 +68,18 @@ int main(){
     hdata_7d_7d->SetDirectory(fs1);
     fs1->Write();
      
-    TString filename2 = "output_new_simu_rebin.root";
+    TString filename2 = "../after_rebin/output3_simu_rebin.root";
 
     TFile * fs2 = new TFile(filename2.Data(), "RECREATE");
     //simu
-    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/before_rebin/output_new_simu.root", "r");
+    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/FD_analysis/build_rga/output3_simu.root", "r");
     
     TH1D * hsimu_0 = (TH1D *) fs_simu->Get("invmass_Ppip_twoPi");
     TH1D * hsimu_1 = (TH1D *) fs_simu->Get("invmass_Ppim_twoPi");
     TH1D * hsimu_2 = (TH1D *) fs_simu->Get("invmass_pippim_twoPi");
     TH1D * hsimu_4 = (TH1D *) fs_simu->Get("Q2_twoPi");
     TH2D * hsimu_5 = (TH2D *) fs_simu->Get("W_vs_q2_twoPi");
+    TH2D * hsimu_5b = (TH2D *) fs_simu->Get("W_vs_q2_photon_twoPi");
     TH1D * hsimu_6a = (TH1D *) fs_simu->Get("W_q2_15_twoPi");
     TH1D * hsimu_6b = (TH1D *) fs_simu->Get("W_q2_2_twoPi");
     TH1D * hsimu_6c = (TH1D *) fs_simu->Get("W_q2_23_twoPi");
@@ -85,6 +94,7 @@ int main(){
     TH1D * hsimu_2_2 = (TH1D *) (hsimu_2->Rebin(ngroup,"invmass_pippim_twoPi"));
     TH1D * hsimu_4_4 = (TH1D *) (hsimu_4->Rebin(ngroup,"Q2_twoPi"));
     TH2D * hsimu_5_5 = (TH2D *) (hsimu_5->Rebin2D(ngroup,ngroup,"W_vs_q2_twoPi"));
+    TH2D * hsimu_5b_5b = (TH2D *) (hsimu_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon_twoPi"));
     TH1D * hsimu_6a_6a = (TH1D *) (hsimu_6a->Rebin(ngroup,"W_q2_15_twoPi"));
     TH1D * hsimu_6b_6b = (TH1D *) (hsimu_6b->Rebin(ngroup,"W_q2_2_twoPi"));
     TH1D * hsimu_6c_6c = (TH1D *) (hsimu_6c->Rebin(ngroup,"W_q2_23_twoPi"));
@@ -99,6 +109,7 @@ int main(){
     hsimu_2_2->SetDirectory(fs2);
     hsimu_4_4->SetDirectory(fs2);
     hsimu_5_5->SetDirectory(fs2);
+    hsimu_5b_5b->SetDirectory(fs2);
     hsimu_6a_6a->SetDirectory(fs2);
     hsimu_6b_6b->SetDirectory(fs2);
     hsimu_6c_6c->SetDirectory(fs2);
@@ -109,17 +120,18 @@ int main(){
     hsimu_7d_7d->SetDirectory(fs2);
     fs2->Write();
 
-    TString filename3 = "original_574_rebin.root";
+    TString filename3 = "../after_rebin/original_574_rebin.root";
 
     TFile * fs3 = new TFile(filename3.Data(), "RECREATE");
     
-    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_574.root", "r");
+    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_574.root", "r");
 
     TH1D * h519_0 = (TH1D *) fs_519->Get("MpPip");
     TH1D * h519_1 = (TH1D *) fs_519->Get("MpPim");
     TH1D * h519_2 = (TH1D *) fs_519->Get("MPiPi");
     TH1D * h519_4 = (TH1D *) fs_519->Get("Q2");
     TH2D * h519_5 = (TH2D *) fs_519->Get("W_vs_q2");
+    TH2D * h519_5b = (TH2D *) fs_519->Get("W_vs_q2_photon");
     TH1D * h519_6a = (TH1D *) fs_519->Get("W(q2<1.5)");
     TH1D * h519_6b = (TH1D *) fs_519->Get("W(q2<2)");
     TH1D * h519_6c = (TH1D *) fs_519->Get("W(2<q2<3)");
@@ -134,6 +146,7 @@ int main(){
     TH1D * h519_2_2 = (TH1D *) (h519_2->Rebin(ngroup,"MPiPi"));
     TH1D * h519_4_4 = (TH1D *) (h519_4->Rebin(ngroup,"Q2"));
     TH2D * h519_5_5 = (TH2D *) (h519_5->Rebin2D(ngroup,ngroup,"W_vs_q2"));
+    TH2D * h519_5b_5b = (TH2D *) (h519_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon"));
     TH1D * h519_6a_6a = (TH1D *) (h519_6a->Rebin(ngroup,"W(q2<1.5)"));
     TH1D * h519_6b_6b = (TH1D *) (h519_6b->Rebin(ngroup,"W(q2<2)"));
     TH1D * h519_6c_6c = (TH1D *) (h519_6c->Rebin(ngroup,"W(2<q2<3)"));
@@ -148,6 +161,7 @@ int main(){
     h519_2_2->SetDirectory(fs3);
     h519_4_4->SetDirectory(fs3);
     h519_5_5->SetDirectory(fs3);
+    h519_5b_5b->SetDirectory(fs3);
     h519_6a_6a->SetDirectory(fs3);
     h519_6b_6b->SetDirectory(fs3);
     h519_6c_6c->SetDirectory(fs3);
@@ -158,16 +172,17 @@ int main(){
     h519_7d_7d->SetDirectory(fs3);
     fs3->Write();
 
-    TString filename4 = "original_575_rebin.root";
+    TString filename4 = "../after_rebin/original_575_rebin.root";
 
     TFile * fs4 = new TFile(filename4.Data(), "RECREATE");
     
-    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_575.root", "r");
+    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_575.root", "r");
     TH1D * h523_0 = (TH1D *) fs_523->Get("MpPip");
     TH1D * h523_1 = (TH1D *) fs_523->Get("MpPim");
     TH1D * h523_2 = (TH1D *) fs_523->Get("MPiPi");
     TH1D * h523_4 = (TH1D *) fs_523->Get("Q2");
     TH2D * h523_5 = (TH2D *) fs_523->Get("W_vs_q2");
+    TH2D * h523_5b = (TH2D *) fs_523->Get("W_vs_q2_photon");
     TH1D * h523_6a = (TH1D *) fs_523->Get("W(q2<1.5)");
     TH1D * h523_6b = (TH1D *) fs_523->Get("W(q2<2)");
     TH1D * h523_6c = (TH1D *) fs_523->Get("W(2<q2<3)");
@@ -182,6 +197,7 @@ int main(){
     TH1D * h523_2_2 = (TH1D *) (h523_2->Rebin(ngroup,"MPiPi"));
     TH1D * h523_4_4 = (TH1D *) (h523_4->Rebin(ngroup,"Q2"));
     TH2D * h523_5_5 = (TH2D *) (h523_5->Rebin2D(ngroup,ngroup,"W_vs_q2"));
+    TH2D * h523_5b_5b = (TH2D *) (h523_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon"));
     TH1D * h523_6a_6a = (TH1D *) (h523_6a->Rebin(ngroup,"W(q2<1.5)"));
     TH1D * h523_6b_6b = (TH1D *) (h523_6b->Rebin(ngroup,"W(q2<2)"));
     TH1D * h523_6c_6c = (TH1D *) (h523_6c->Rebin(ngroup,"W(2<q2<3)"));
@@ -196,6 +212,7 @@ int main(){
     h523_2_2->SetDirectory(fs4);
     h523_4_4->SetDirectory(fs4);
     h523_5_5->SetDirectory(fs4);
+    h523_5b_5b->SetDirectory(fs4);
     h523_6a_6a->SetDirectory(fs4);
     h523_6b_6b->SetDirectory(fs4);
     h523_6c_6c->SetDirectory(fs4);
@@ -206,16 +223,17 @@ int main(){
     h523_7d_7d->SetDirectory(fs4);
     fs4->Write();
 
-    TString filename5 = "original_576_rebin.root";
+    TString filename5 = "../after_rebin/original_576_rebin.root";
 
     TFile * fs5 = new TFile(filename5.Data(), "RECREATE");
     
-    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_576.root", "r");
+    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_576.root", "r");
     TH1D * h525_0 = (TH1D *) fs_525->Get("MpPip");
     TH1D * h525_1 = (TH1D *) fs_525->Get("MpPim");
     TH1D * h525_2 = (TH1D *) fs_525->Get("MPiPi");
     TH1D * h525_4 = (TH1D *) fs_525->Get("Q2");
     TH2D * h525_5 = (TH2D *) fs_525->Get("W_vs_q2");
+    TH2D * h525_5b = (TH2D *) fs_525->Get("W_vs_q2_photon");
     TH1D * h525_6a = (TH1D *) fs_525->Get("W(q2<1.5)");
     TH1D * h525_6b = (TH1D *) fs_525->Get("W(q2<2)");
     TH1D * h525_6c = (TH1D *) fs_525->Get("W(2<q2<3)");
@@ -230,6 +248,7 @@ int main(){
     TH1D * h525_2_2 = (TH1D *) (h525_2->Rebin(ngroup,"MPiPi"));
     TH1D * h525_4_4 = (TH1D *) (h525_4->Rebin(ngroup,"Q2"));
     TH2D * h525_5_5 = (TH2D *) (h525_5->Rebin2D(ngroup,ngroup,"W_vs_q2"));
+    TH2D * h525_5b_5b = (TH2D *) (h525_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon"));
     TH1D * h525_6a_6a = (TH1D *) (h525_6a->Rebin(ngroup,"W(q2<1.5)"));
     TH1D * h525_6b_6b = (TH1D *) (h525_6b->Rebin(ngroup,"W(q2<2)"));
     TH1D * h525_6c_6c = (TH1D *) (h525_6c->Rebin(ngroup,"W(2<q2<3)"));
@@ -244,6 +263,7 @@ int main(){
     h525_2_2->SetDirectory(fs5);
     h525_4_4->SetDirectory(fs5);
     h525_5_5->SetDirectory(fs5);
+    h525_5b_5b->SetDirectory(fs5);
     h525_6a_6a->SetDirectory(fs5);
     h525_6b_6b->SetDirectory(fs5);
     h525_6c_6c->SetDirectory(fs5);
@@ -254,16 +274,17 @@ int main(){
     h525_7d_7d->SetDirectory(fs5);
     fs5->Write();
 
-    TString filename6 = "original_577_rebin.root";
+    TString filename6 = "../after_rebin/original_577_rebin.root";
 
     TFile * fs6 = new TFile(filename6.Data(), "RECREATE");
     
-    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/acceptance/code_original/rga_script/new_lund/original_577.root", "r");
+    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_577.root", "r");
     TH1D * h543_0 = (TH1D *) fs_543->Get("MpPip");
     TH1D * h543_1 = (TH1D *) fs_543->Get("MpPim");
     TH1D * h543_2 = (TH1D *) fs_543->Get("MPiPi");
     TH1D * h543_4 = (TH1D *) fs_543->Get("Q2");
     TH2D * h543_5 = (TH2D *) fs_543->Get("W_vs_q2");
+    TH2D * h543_5b = (TH2D *) fs_543->Get("W_vs_q2_photon");
     TH1D * h543_6a = (TH1D *) fs_543->Get("W(q2<1.5)");
     TH1D * h543_6b = (TH1D *) fs_543->Get("W(q2<2)");
     TH1D * h543_6c = (TH1D *) fs_543->Get("W(2<q2<3)");
@@ -278,6 +299,7 @@ int main(){
     TH1D * h543_2_2 = (TH1D *) (h543_2->Rebin(ngroup,"MPiPi"));
     TH1D * h543_4_4 = (TH1D *) (h543_4->Rebin(ngroup,"Q2"));
     TH2D * h543_5_5 = (TH2D *) (h543_5->Rebin2D(ngroup,ngroup,"W_vs_q2"));
+    TH2D * h543_5b_5b = (TH2D *) (h543_5b->Rebin2D(ngroup,ngroup,"W_vs_q2_photon"));
     TH1D * h543_6a_6a = (TH1D *) (h543_6a->Rebin(ngroup,"W(q2<1.5)"));
     TH1D * h543_6b_6b = (TH1D *) (h543_6b->Rebin(ngroup,"W(q2<2)"));
     TH1D * h543_6c_6c = (TH1D *) (h543_6c->Rebin(ngroup,"W(2<q2<3)"));
@@ -292,6 +314,7 @@ int main(){
     h543_2_2->SetDirectory(fs6);
     h543_4_4->SetDirectory(fs6);
     h543_5_5->SetDirectory(fs6);
+    h543_5b_5b->SetDirectory(fs6);
     h543_6a_6a->SetDirectory(fs6);
     h543_6b_6b->SetDirectory(fs6);
     h543_6c_6c->SetDirectory(fs6);

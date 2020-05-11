@@ -7,8 +7,13 @@
 
 #include "Lcore.h"
 
-int main(){
-    
+int main(const int argc, const char * argv[]){
+
+    if (argc < 2){
+    std::cout << "./divide <rebin ngroup> " << endl;
+    return 0;
+  }
+
     double density = 0.0708; //g/cm3
     double thickness = 5;//cm
     double mp = 1.6726219e-24;//g
@@ -18,13 +23,14 @@ int main(){
 
     gStyle->SetPalette(53);
    
-    int n_bin=500; 
+    int ngroup = atoi(argv[1]);
+    float n_bin=500 / ngroup; 
     TString filename = "cs_rga1.root";
     
     TFile * fs = new TFile(filename.Data(), "RECREATE");
     
     //data
-    TFile * fs_data = new TFile("/work/clas12/users/gjwei/FD_analysis/build_rga/output3_0052.root", "r");
+    TFile * fs_data = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/output3_0052_rebin.root", "r");
     
     TH1D * hdata_0 = (TH1D *) fs_data->Get("invmass_Ppip_twoPi");
     TH1D * hdata_1 = (TH1D *) fs_data->Get("invmass_Ppim_twoPi");
@@ -45,7 +51,7 @@ int main(){
 
 
     //simulation
-    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/FD_analysis/build_rga/output3_simu.root", "r");
+    TFile * fs_simu = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/output3_simu_rebin.root", "r");
     TH1D * hsimu_0 = (TH1D *) fs_simu->Get("invmass_Ppip_twoPi");
     TH1D * hsimu_1 = (TH1D *) fs_simu->Get("invmass_Ppim_twoPi");
     TH1D * hsimu_2 = (TH1D *) fs_simu->Get("invmass_pippim_twoPi");
@@ -64,7 +70,7 @@ int main(){
     TH1D * hsimu_7d = (TH1D *) fs_simu->Get("W_q2_34_photon_twoPi");
     
     //original from generator
-    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_574.root", "r");
+    TFile * fs_519 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/original_574_rebin.root", "r");
     TH1D * h519_0 = (TH1D *) fs_519->Get("MpPip");
     TH1D * h519_1 = (TH1D *) fs_519->Get("MpPim");
     TH1D * h519_2 = (TH1D *) fs_519->Get("MPiPi");
@@ -81,7 +87,7 @@ int main(){
     TH1D * h519_7c = (TH1D *) fs_519->Get("W(2<q2<3)_photon");
     TH1D * h519_7d = (TH1D *) fs_519->Get("W(3<q2<4)_photon");
     
-    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_575.root", "r");
+    TFile * fs_523 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/original_575_rebin.root", "r");
     TH1D * h523_0 = (TH1D *) fs_523->Get("MpPip");
     TH1D * h523_1 = (TH1D *) fs_523->Get("MpPim");
     TH1D * h523_2 = (TH1D *) fs_523->Get("MPiPi");
@@ -98,7 +104,7 @@ int main(){
     TH1D * h523_7c = (TH1D *) fs_523->Get("W(2<q2<3)_photon");
     TH1D * h523_7d = (TH1D *) fs_523->Get("W(3<q2<4)_photon");
      
-    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_576.root", "r");
+    TFile * fs_525 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/original_576_rebin.root", "r");
     TH1D * h525_0 = (TH1D *) fs_525->Get("MpPip");
     TH1D * h525_1 = (TH1D *) fs_525->Get("MpPim");
     TH1D * h525_2 = (TH1D *) fs_525->Get("MPiPi");
@@ -115,7 +121,7 @@ int main(){
     TH1D * h525_7c = (TH1D *) fs_525->Get("W(2<q2<3)_photon");
     TH1D * h525_7d = (TH1D *) fs_525->Get("W(3<q2<4)_photon");
 
-    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/ori_root/original_577.root", "r");
+    TFile * fs_543 = new TFile("/work/clas12/users/gjwei/rga_fd_cs/after_rebin/original_577_rebin.root", "r");
     TH1D * h543_0 = (TH1D *) fs_543->Get("MpPip");
     TH1D * h543_1 = (TH1D *) fs_543->Get("MpPim");
     TH1D * h543_2 = (TH1D *) fs_543->Get("MPiPi");
@@ -313,23 +319,23 @@ int main(){
     herror_7c->Scale(1/convert);
 
     //binwidth
-    hdata_0->Scale(500/(3.5-1.0));
-    hdata_1->Scale(500/(3.5-1.0));
-    hdata_2->Scale(500/2.5);
-    hdata_4->Scale(500/12.0);
-    hdata_5->Scale(500/12.0*500/5.5);
-    hdata_5b->Scale(500/12.0*500/5.5);
-    hdata_6a->Scale(500/5.5);
-    hdata_6b->Scale(500/5.5);
-    hdata_6c->Scale(500/5.5);
-    hdata_6d->Scale(500/5.5);
-    hdata_7a->Scale(500/5.5);
-    hdata_7b->Scale(500/5.5);
-    hdata_7c->Scale(500/5.5);
-    hdata_7d->Scale(500/5.5);
+    hdata_0->Scale(n_bin/(3.5-1.0));
+    hdata_1->Scale(n_bin/(3.5-1.0));
+    hdata_2->Scale(n_bin/2.5);
+    hdata_4->Scale(n_bin/12.0);
+    hdata_5->Scale(n_bin/12.0*n_bin/5.5);
+    hdata_5b->Scale(n_bin/12.0*n_bin/5.5);
+    hdata_6a->Scale(n_bin/5.5);
+    hdata_6b->Scale(n_bin/5.5);
+    hdata_6c->Scale(n_bin/5.5);
+    hdata_6d->Scale(n_bin/5.5);
+    hdata_7a->Scale(n_bin/5.5);
+    hdata_7b->Scale(n_bin/5.5);
+    hdata_7c->Scale(n_bin/5.5);
+    hdata_7d->Scale(n_bin/5.5);
 
-    herror_6c->Scale(500/5.5);
-    herror_7c->Scale(500/5.5);
+    herror_6c->Scale(n_bin/5.5);
+    herror_7c->Scale(n_bin/5.5);
     
     //unit from cm2 to ub
     hdata_0->Scale(1e30);
