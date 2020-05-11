@@ -39,6 +39,8 @@ int main(const int argc, const char * argv[]){
     TH1D * h0e = new TH1D("Q2", "Q2", 500, 0.0, 12.0);
     
     TH2D * h0f = new TH2D("W_vs_q2","W_vs_q2",500,0.0,5.5,500,0.0,12.0);
+    TH2D * h1f = new TH2D("W_vs_q2_photon","W_vs_q2_photon",500,0.0,5.5,500,0.0,12.0);    
+
     TH1D * h0g = new TH1D("W", "W", 500, 0.0, 5.5);
 
     TH1D * h1a = new TH1D("W(q2<1.5)","W(q2<1.5)",500,0.0,5.5);
@@ -56,6 +58,7 @@ int main(const int argc, const char * argv[]){
     h0d->SetDirectory(fs);
     h0e->SetDirectory(fs);
     h0f->SetDirectory(fs);    
+    h1f->SetDirectory(fs);
     h0g->SetDirectory(fs);
     h1a->SetDirectory(fs);
     h1b->SetDirectory(fs);
@@ -67,6 +70,7 @@ int main(const int argc, const char * argv[]){
     h2d->SetDirectory(fs);
 
     h0f->SetOption("COLZ");
+    h1f->SetOption("COLZ");
     gStyle->SetPalette(53);
 
     TString path0 = "/volatile/clas12/osg/gjwei/job_";
@@ -121,6 +125,9 @@ int main(const int argc, const char * argv[]){
 	flux = w_value*(w_value*w_value - Mp*Mp)/Mp/Mp/10.6041/10.6041/4.0/M_PI;
 	flux = flux/q2 /(1-epsilont)/137.0;
 	//std::cout<<"flux   "<<flux<<std::endl;
+	
+	h1f->Fill(w_value, q2, weight/flux);
+        
 	if(q2 < 1.5){
 		h1a->Fill(w_value, weight);
 		h2a->Fill(w_value, weight/flux);
