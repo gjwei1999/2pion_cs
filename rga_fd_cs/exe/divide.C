@@ -359,9 +359,8 @@ int main(const int argc, const char * argv[]){
     for(int i=1; i<n_bin + 1; i++){
         error_6c = herror_6c->GetBinContent(i);
         error_7c = herror_7c->GetBinContent(i);
-        
-        herror_6c->SetBinContent(i, error_6c);
-        herror_7c->SetBinContent(i, error_7c);
+        hdata_6c->SetBinError(i, error_6c);
+        hdata_7c->SetBinError(i, error_7c);
     }
 
     hdata_0->GetYaxis()->SetTitle("#frac{d#sigma}{dM} (#mub / GeV)");
