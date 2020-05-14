@@ -17,7 +17,7 @@ int main(const int argc, const char * argv[]){
     return 0;
   }
     int job = atoi(argv[1]);
-    TString jobname = "original_";
+    TString jobname = "../ori_root/original_";
 
     string filename = Form("%s%d.root",jobname.Data(),job);
     TFile * fs = new TFile(filename.c_str(), "RECREATE");
@@ -35,10 +35,13 @@ int main(const int argc, const char * argv[]){
     TH1D * h0e = new TH1D("Q2", "Q2", 500, 0.0, 4.5);
     
     TH2D * h0f = new TH2D("W_vs_q2","W_vs_q2",500,0.0,5.5,500,0.0,4.5);
+    TH2D * h1f = new TH2D("W_vs_q2_photon","W_vs_q2_photon",500,0.0,5.5,500,0.0,4.5);
+    
     TH1D * h0g = new TH1D("W", "W", 500, 0.0, 5.5);
-
     TH1D * h2a = new TH1D("W_photon","W_photon",500,0.0,5.5);
 
+    TH1D * h3a = new TH1D("W(03<q2<05)","W(03<q2<05)",500,0.0,5.5);
+    TH1D * h3b = new TH1D("W(03<q2<05)_photon","W(03<q2<05)_photon",500,0.0,5.5);
 
     h0a->SetDirectory(fs);
     h0b->SetDirectory(fs);
@@ -46,8 +49,11 @@ int main(const int argc, const char * argv[]){
     h0d->SetDirectory(fs);
     h0e->SetDirectory(fs);
     h0f->SetDirectory(fs);    
+    h1f->SetDirectory(fs);
     h0g->SetDirectory(fs);
     h2a->SetDirectory(fs);
+    h3a->SetDirectory(fs);
+    h3b->SetDirectory(fs);
 
     h0f->SetOption("COLZ");
     gStyle->SetPalette(53);
@@ -62,7 +68,7 @@ int main(const int argc, const char * argv[]){
     for(file1 ; file1 < 1001; file1++){
       
     //TString inputfile = path1 + file + std::to_string(file1) + ".lund";
-    string inputfile = Form("%s%s%d.lund", path1.Data(), file.Data(), file1);
+    string inputfile = Form("%s%s%d.lund", path1.c_str(), file.Data(), file1);
     
     ifstream infile( inputfile.c_str() );
     
@@ -104,8 +110,15 @@ int main(const int argc, const char * argv[]){
 	flux = w_value*(w_value*w_value - Mp*Mp)/Mp/Mp/10.6041/10.6041/4.0/M_PI;
         flux = flux/q2 /(1-epsilont)/137.0;
         //std::cout<<"flux   "<<flux<<std::endl;
-        h2a->Fill(w_value, weight/flux);
-    }    
+        h1f->Fill(w_value, q2, weight/flux);
+	h2a->Fill(w_value, weight/flux);
+        
+	if(q2>0.3 && q2<0.5){
+		h3a->Fill(w_value, weight);
+		h3b->Fill(w_value, weight/flux);
+	}
+
+     }    
       infile.close();
       if(file1%100==0) {cout<<file1<<endl;}
   }
